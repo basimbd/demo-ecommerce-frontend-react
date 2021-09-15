@@ -61,8 +61,8 @@ function ProductCard(product) {
 
     return (
         <div className="mx-3">
-            <div className="p-2 group relative shadow-md">
-                <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 md:h-80 lg:aspect-none">
+            <div className="h-96 p-2 group relative shadow-md">
+                <div className="w-full min-h-72 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 md:h-72 lg:aspect-none">
                     <img
                         src={product.image}
                         alt={product.category}
@@ -79,7 +79,7 @@ function ProductCard(product) {
                         </h3>
                         {/*<p className="mt-1 text-sm text-gray-500">{product.color}</p>*/}
                     </div>
-                    <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                    <p className="text-sm font-medium text-gray-900">${product.price}</p>
                 </div>
             </div>
             {selectedProducts.has(product.id) ?
