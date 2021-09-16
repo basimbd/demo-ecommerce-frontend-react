@@ -142,7 +142,7 @@ export default function CheckoutModal({isOpen, closeModal}) {
                                     </Dialog.Title>
                                     <ul className="mt-2">
                                         {
-                                            Array.from(selectedProducts).map(([id,product]) => <li key={id}><ProductCheckoutCard {...product} /></li>)
+                                            Array.from(selectedProducts).map(([id,product]) => <li key={id}><ProductCheckoutCard {...{product, type: "checkoutModal"}} /></li>)
                                         }
                                     </ul>
                                     {/*<hr className="my-2 border-2 border-gray-500"/>*/}

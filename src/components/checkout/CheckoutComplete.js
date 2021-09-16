@@ -1,4 +1,4 @@
-import CheckoutProductCard from "./CheckoutProductCard";
+import ProductCheckoutCard from "./ProductCheckoutCard";
 
 export default function CheckoutComplete({state}) {
     console.log("FROM Complete Page:", typeof state)
@@ -16,7 +16,7 @@ export default function CheckoutComplete({state}) {
                 <p>Order Placement successfully completed.</p>
             </div>
             <ul className="mx-auto max-w-2xl">
-                {Object.keys(state).map((mapKey) => <li key={mapKey}><CheckoutProductCard {...state[mapKey]}/></li>)}
+                {Object.keys(state).map((mapKey) => <li key={mapKey}><ProductCheckoutCard {...{product:state[mapKey], type:"checkoutComplete"}}/></li>)}
             </ul>
             <div  className="mx-auto max-w-2xl mb-16">
                 <div className="flex flex-row justify-end px-2">
