@@ -71,14 +71,18 @@ export default function CheckoutModal({isOpen, closeModal}) {
             body: JSON.stringify(Object.fromEntries(selectedProducts))
         }).then(() => {
             console.log("Result OK!")
+            history.replace({
+                pathname: '/checkout_complete',
+                state: Object.fromEntries(selectedProducts)
+            });
             removeAllProducts();
-            history.replace('/checkout_complete');
             console.log("Checkout Complete")
             return null
         }).catch(() => {
             history.push('/checkout_failed');
+        }).finally(() => {
+            closeModal();
         });
-        closeModal()
     }
 
     if(isOpen){
@@ -119,7 +123,7 @@ export default function CheckoutModal({isOpen, closeModal}) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <div className="inline-block w-128 h-screen max-w-md p-6 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-tl-2xl rounded-bl-2xl">
+                                <div className="inline-block w-128 h-screen max-w-md p-6 overflow-y-scroll text-center align-middle transition-all transform bg-white shadow-xl rounded-tl-2xl rounded-bl-2xl">
                                     <Dialog.Title
                                         as="h3"
                                         className="flex flex-row justify-between items-center text-lg font-medium leading-6 text-gray-900"
@@ -147,15 +151,15 @@ export default function CheckoutModal({isOpen, closeModal}) {
                                             <div className="flex flex-row justify-end px-2">
                                                 <span>{`Sub-total Amount = $${calculateTotal()}`}</span>
                                             </div>
-                                            <hr className="my-2 border-2 border-gray-500"/>
+                                            <hr className="my-2 border-2 border-indigo-600"/>
                                             <div className="flex flex-row justify-between">
                                                 <button className="bg-transparent text-indigo-600 text-left hover:text-indigo-800">Do you have a voucher?</button>
                                             </div>
-                                            <hr className="my-2 border-2 border-gray-500"/>
+                                            <hr className="my-2 border-2 border-indigo-600"/>
                                             <div className="flex flex-row justify-end px-2">
                                                 <span>{`Delivery Fee = $11`}</span>
                                             </div>
-                                            <hr className="my-2 border-2 border-gray-500"/>
+                                            <hr className="my-2 border-2 border-indigo-600"/>
                                             <div className="flex flex-row justify-end px-2">
                                                 <span>{`Total Amount = $${(parseFloat(calculateTotal())+11).toFixed(2)}`}</span>
                                             </div>

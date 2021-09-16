@@ -61,25 +61,27 @@ function ProductCard(product) {
 
     return (
         <div className="mx-3">
-            <div className="h-96 p-2 group relative shadow-md">
-                <div className="w-full min-h-72 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 md:h-72 lg:aspect-none">
+            <div className="h-96 lg:h-104 xl:h-112 2xl:h-120 group relative shadow-md">
+                <div className="w-full p-4 min-h-80 bg-gray-200 rounded-md group-hover:opacity-75 lg:h-96 xl:h-100 2xl:h-104">
                     <img
                         src={product.image}
                         alt={product.category}
                         className="w-full h-full object-center object-cover lg:w-full lg:h-full"
                     />
                 </div>
-                <div className="mt-4 flex justify-between">
-                    <div>
-                        <h3 className="text-sm text-gray-700">
-                            <a href={product.href}>
+                <div className="mt-4 h-12 flex justify-between">
+                    {/*<div>
+
+                    </div>*/}
+                    <h3 className="h-12 px-1 text-left whitespace-nowrap overflow-hidden overflow-ellipsis text-gray-700">
+                        {/*<a href={product.href}>
                                 <span aria-hidden="true" className="absolute inset-0" />
                                 {product.title}
-                            </a>
-                        </h3>
-                        {/*<p className="mt-1 text-sm text-gray-500">{product.color}</p>*/}
-                    </div>
-                    <p className="text-sm font-medium text-gray-900">${product.price}</p>
+                            </a>*/}
+                        {product.title}
+                    </h3>
+                    {/*<p className="mt-1 text-sm text-gray-500">{product.color}</p>*/}
+                    <div><span className="text-sm p-1 font-medium rounded-md bg-indigo-100 text-gray-900">${product.price}</span></div>
                 </div>
             </div>
             {selectedProducts.has(product.id) ?

@@ -14,15 +14,21 @@ export default function ProductCheckoutCard(product){
             },
         });
     }
+
     const handleProductAmountChange = (e) => {
         if(e.target.value > 0){
-            dispatch({
-                type: ACTIONS.UPDATE,
-                data: {
-                    product: {...product},
-                    selectedAmount: (e.target.value),
-                },
-            });
+            console.log(e.target.value)
+            if ( /^[0-9]+$/.test(e.target.value) ){
+                //e.target.value = e.target.value.replace(/[^0-9]*/g,"")
+                //console.log(e.target.value)
+                dispatch({
+                    type: ACTIONS.UPDATE,
+                    data: {
+                        product: {...product},
+                        selectedAmount: (parseInt(e.target.value)),
+                    },
+                });
+            }
         }
     }
 

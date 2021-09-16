@@ -1,91 +1,33 @@
-/*
-  This example requires Tailwind CSS v2.0+
 
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import {useContext, useEffect, useState} from "react";
 import ProductCard from "./productCard/ProductCard";
 import {ProductsContext} from "../contexts/productsContext/ProductsContext";
 
-/*const products = [
-    {
-        id: 1,
-        title: 'Basic Tee 1',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        description: "Front of men's Basic Tee in black.",
-        price: '$35',
-        color: 'Black',
-    },
-    {
-        id: 2,
-        title: 'Basic Tee 2',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        description: "Front of men's Basic Tee in black.",
-        price: '$65',
-        color: 'Black',
-    },
-    {
-        id: 3,
-        title: 'Basic Tee 3',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        description: "Front of men's Basic Tee in black.",
-        price: '$25',
-        color: 'Black',
-    },
-    {
-        id: 4,
-        title: 'Basic Tee 4',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        description: "Front of men's Basic Tee in black.",
-        price: '$43',
-        color: 'Black',
-    },
-    {
-        id: 5,
-        title: 'Basic Tee 5',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        description: "Front of men's Basic Tee in black.",
-        price: '$35',
-        color: 'Black',
-    },
-    {
-        id: 6,
-        title: 'Basic Tee 6',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        description: "Front of men's Basic Tee in black.",
-        price: '$31',
-        color: 'Black',
-    },
-    // More products...
-]
-*/
+function getProductsFromLocalStorage() {
+    const products = localStorage.getItem('all_products')
+
+    if (products){
+        console.log("returning: ", JSON.parse(products))
+        return JSON.parse(products)
+    } else{
+        return []
+    }
+}
 
 export default function ProductPage() {
-    const [isLoading, setIsLoading] = useState(true)
-    const [products, setProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [products, setProducts] = useState(getProductsFromLocalStorage())
 
     useEffect(() => {
-        fetchProducts().then(
-            //do nothing
-        );
-    }, [])
+        console.log(products.length)
+        if(!products.length){
+            setIsLoading(true)
+            fetchProducts().then(
+                /*localStorage.setItem('all_products', products);
+                return null*/
+            );
+        }
+    }, [products])
 
     async function fetchProducts(){
         const apiAddress = "https://fakestoreapi.com/products"
@@ -96,6 +38,7 @@ export default function ProductPage() {
                 console.log(results)
                 setIsLoading(false)
                 setProducts(results)
+                localStorage.setItem('all_products', JSON.stringify(results))
             }else{
                 console.log("Request Failed: ", response.statusText)
                 setIsLoading(false)
@@ -117,8 +60,8 @@ export default function ProductPage() {
                     Loading...
                 </div>
             ) : products.length ? (
-                    <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 md:mx-2 lg:mx-12 lg:max-w-full lg:px-8">
-                        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                    <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 2xl:max-w-9xl 2xl:px-12">
+                        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                             {products.map((product) =>
                                 <ProductCard key={product.id} {...product} />
                             )}

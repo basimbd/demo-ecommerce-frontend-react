@@ -15,9 +15,9 @@ export default function Main(){
                     <Route exact path="/">
                         <ProductPage />
                     </Route>
-                    <Route exact path="/checkout_complete">
-                        <CheckoutComplete />
-                    </Route>
+                    <Route exact path="/checkout_complete" render={
+                        ({location}) => <CheckoutComplete {...location} />
+                    }/>
                     <Route exact path="/checkout_failed">
                         <CheckoutFailed />
                     </Route>
