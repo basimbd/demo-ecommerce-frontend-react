@@ -1,7 +1,6 @@
 import ProductCheckoutCard from "./ProductCheckoutCard";
 
 export default function CheckoutComplete({state}) {
-    //console.log("FROM Complete Page:", typeof state)
 
     const calculateTotal = () => {
         let sum = 0;
@@ -35,10 +34,6 @@ export default function CheckoutComplete({state}) {
             </div>
         )
     } else{
-        return (
-            <div>
-                Wrong URL!
-            </div>
-        )
+        return null
     }
 }

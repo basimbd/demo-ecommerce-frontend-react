@@ -116,7 +116,6 @@ export default function Navbar() {
                                                             href={item.href}
                                                             className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                                         >
-                                                            {/*<item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />*/}
                                                             <img
                                                                 className="flex-shrink-0 h-6 w-6"
                                                                 src={item.icon}

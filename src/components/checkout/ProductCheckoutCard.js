@@ -11,7 +11,6 @@ export default function ProductCheckoutCard({product, type}){
             type: ACTIONS.DELETE,
             data: {
                 product: {id:product.id},
-                /*selectedAmount: (selectedProducts.get(product.id).selectedAmount-1),*/
             },
         });
     }
@@ -20,8 +19,6 @@ export default function ProductCheckoutCard({product, type}){
         if(e.target.value > 0){
             console.log(e.target.value)
             if ( /^[0-9]+$/.test(e.target.value) ){
-                //e.target.value = e.target.value.replace(/[^0-9]*/g,"")
-                //console.log(e.target.value)
                 dispatch({
                     type: ACTIONS.UPDATE,
                     data: {
@@ -33,48 +30,13 @@ export default function ProductCheckoutCard({product, type}){
         }
     }
 
-    /*const increment = () => {
-        // In this full scope, selectedAmount is the prevAmount value, not the updated one.
-        //setSelectedAmount(prevAmount => prevAmount+1);
-        dispatch({
-            type: ACTIONS.UPDATE,
-            data: {
-                product: {...product},
-                selectedAmount: (selectedProducts.has(product.id) ? (selectedProducts.get(product.id).selectedAmount+1) : 1),
-            },
-        });
-    }
-
-    const decrement = () => {
-        // In this full scope, selectedAmount is the prevAmount value, not the updated one.
-        //setSelectedAmount(prevAmount => prevAmount-1)
-        if(selectedProducts.get(product.id).selectedAmount === 1){
-            //setIsAdded(false)
-            dispatch({
-                type: ACTIONS.DELETE,
-                data: {
-                    product: {id:product.id},
-                    selectedAmount: (selectedProducts.get(product.id).selectedAmount-1),
-                },
-            });
-        } else{
-            dispatch({
-                type: ACTIONS.UPDATE,
-                data: {
-                    product: {...product},
-                    /*selectedAmount: (selectedProducts.get(product.id).selectedAmount-1),*!/
-                },
-            });
-        }
-    }*/
-
     if(type === "checkoutModal"){
         return (
             <div className="flex flex-col w-full h-40 my-2 p-2 rounded-md border-2 border-gray-400">
                 <div className="flex flex-row flex-wrap justify-between">
                     <span className="w-9/12 text-left text-sm">{product.title}</span>
-                    <span className="w-2/18"><input className="w-full" min="1" type="number" onChange={handleProductAmountChange} value={selectedProducts.get(product.id).selectedAmount}/></span>
-                    <button className="w-1/12" onClick={removeProduct}>
+                    <span className="w-2/18"><input className="w-full border-2 border-indigo-600" min="1" type="number" onChange={handleProductAmountChange} value={selectedProducts.get(product.id).selectedAmount}/></span>
+                    <button className="w-1/12" onClick={removeProduct} title="Delete Product">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#5146e5">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>

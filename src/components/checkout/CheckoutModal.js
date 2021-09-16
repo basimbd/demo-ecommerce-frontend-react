@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import {Fragment, useContext, useState} from 'react'
+import {Fragment, useContext} from 'react'
 import {useHistory} from "react-router-dom";
 import ProductCheckoutCard from "./ProductCheckoutCard";
 import {ProductsContext} from "../contexts/productsContext/ProductsContext";
@@ -9,10 +9,6 @@ export default function CheckoutModal({isOpen, closeModal}) {
     const [selectedProducts, dispatch] = useContext(ProductsContext);
     const history = useHistory();
 
-    //console.log("Rendering CheckoutModal!")
-
-    //console.log("Inside Modal: ", isOpen)
-    //console.log("Inside Modal: ", closeModal)
     const clearCart = () => {
         if(window.confirm("Are you sure you want to remove all products?")){
             removeAllProducts();
@@ -34,32 +30,6 @@ export default function CheckoutModal({isOpen, closeModal}) {
     }
 
     const proceedToCheckout = () => {
-        /*try {
-            const postApiAddress = 'https://webhook.site/a444ecee-4efd-4ccf-8d13-6d8e295ffcfe';
-            const results = await fetch(postApiAddress, {
-                method: 'post',
-                mode: 'no-cors',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(Object.fromEntries(selectedProducts))
-            });
-            console.log("RESULT: ", results);
-            if (results.ok){
-                console.log("Result OK!")
-                dispatch({
-                    type: ACTIONS.DELETE_ALL,
-                });
-                history.replace('/checkout_complete');
-                console.log("Checkout Complete")
-            } else{
-                console.log("Throwing Error")
-                throw Error("Data post failed!")
-            }
-        } catch (e) {
-            history.push('/checkout_failed');
-        }*/
         const postApiAddress = 'https://webhook.site/a444ecee-4efd-4ccf-8d13-6d8e295ffcfe';
         fetch(postApiAddress, {
             method: 'post',
@@ -145,7 +115,7 @@ export default function CheckoutModal({isOpen, closeModal}) {
                                             Array.from(selectedProducts).map(([id,product]) => <li key={id}><ProductCheckoutCard {...{product, type: "checkoutModal"}} /></li>)
                                         }
                                     </ul>
-                                    {/*<hr className="my-2 border-2 border-gray-500"/>*/}
+
                                     {selectedProducts.size ? (
                                         <>
                                             <div className="flex flex-row justify-end px-2">

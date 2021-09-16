@@ -1,7 +1,5 @@
-
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import ProductCard from "./productCard/ProductCard";
-import {ProductsContext} from "../contexts/productsContext/ProductsContext";
 
 function getProductsFromLocalStorage() {
     const products = localStorage.getItem('all_products')
@@ -19,12 +17,10 @@ export default function ProductPage() {
     const [products, setProducts] = useState(getProductsFromLocalStorage())
 
     useEffect(() => {
-        console.log(products.length)
         if(!products.length){
             setIsLoading(true)
             fetchProducts().then(
-                /*localStorage.setItem('all_products', products);
-                return null*/
+                //do nothing
             );
         }
     }, [products])
@@ -35,16 +31,16 @@ export default function ProductPage() {
             const response = await fetch(apiAddress)
             if(response.ok){
                 const results = await response.json()
-                console.log(results)
+                //console.log(results)
                 setIsLoading(false)
                 setProducts(results)
                 localStorage.setItem('all_products', JSON.stringify(results))
             }else{
-                console.log("Request Failed: ", response.statusText)
+                //console.log("Request Failed: ", response.statusText)
                 setIsLoading(false)
             }
         } catch (err) {
-            console.log("Error: ", err)
+            //console.log("Error: ", err)
             setIsLoading(false)
         }
     }
