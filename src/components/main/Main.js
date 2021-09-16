@@ -1,6 +1,6 @@
 import Navbar from "../navbar/Navbar";
 import ProductPage from "../productPage/ProductPage";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import CheckoutComplete from "../checkout/CheckoutComplete";
 import CheckoutFailed from "../checkout/CheckoutFailed";
 import AboutUs from "../about_us/AboutUs";
@@ -16,7 +16,15 @@ export default function Main(){
                         <ProductPage />
                     </Route>
                     <Route exact path="/checkout_complete" render={
-                        ({location}) => <CheckoutComplete {...location} />
+                        ({location}) => {
+                            if(location.state){
+                                return <CheckoutComplete {...location} />
+                            } else{
+                                return <Redirect to={{
+                                    pathname: "/",
+                                }}/>
+                            }
+                        }
                     }/>
                     <Route exact path="/checkout_failed">
                         <CheckoutFailed />

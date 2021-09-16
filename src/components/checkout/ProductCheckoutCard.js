@@ -33,7 +33,7 @@ export default function ProductCheckoutCard({product, type}){
         }
     }
 
-    const increment = () => {
+    /*const increment = () => {
         // In this full scope, selectedAmount is the prevAmount value, not the updated one.
         //setSelectedAmount(prevAmount => prevAmount+1);
         dispatch({
@@ -62,11 +62,11 @@ export default function ProductCheckoutCard({product, type}){
                 type: ACTIONS.UPDATE,
                 data: {
                     product: {...product},
-                    /*selectedAmount: (selectedProducts.get(product.id).selectedAmount-1),*/
+                    /*selectedAmount: (selectedProducts.get(product.id).selectedAmount-1),*!/
                 },
             });
         }
-    }
+    }*/
 
     if(type === "checkoutModal"){
         return (
