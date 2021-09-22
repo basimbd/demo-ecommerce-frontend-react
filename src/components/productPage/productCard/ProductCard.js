@@ -1,7 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import {addToCart, increment, decrement, removeFromCart} from "../../../redux/actions/cartAction";
 
+import ProductPreview from "../productPreview/ProductPreview";
+import {useState} from "react";
+
 export default function ProductCard(product) {
+    const [showPreview, setShowPreview] = useState(false)
     const selectedProducts = useSelector(state => {
         return state.cart
     })
@@ -15,23 +19,36 @@ export default function ProductCard(product) {
         }
     }
 
+    function openPreview(){
+        setShowPreview(true)
+    }
+
+    function closePreview(){
+        setShowPreview(false)
+    }
+
     return (
         <div className="flex flex-col flex-nowrap items-center justify-between rounded-xl mx-auto my-2
             h-80 w-64 sm:h-96 sm:w-72 sm:my-4 md:h-104 md:w-80 md:my-6 lg:h-112 lg:w-88 shadow-md"
         >
-            <div className="h-52 w-52 rounded-md sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72">
-                <img
-                    src={product.image}
-                    alt={product.category}
-                    className="w-full h-full object-center"
-                />
+            <div className="group cursor-pointer" onClick={openPreview}>
+                <div className="h-52 w-52 rounded-md sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72 group-hover:opacity-70">
+                    <img
+                        src={product.image}
+                        alt={product.category}
+                        className="w-full h-full object-center"
+                    />
+                </div>
+                <div className="w-full mt-1 sm:mt-2 xl:mt-4 flex justify-between group-hover:opacity-70">
+                    <h3 className="w-full text-xs sm:text-sm md:text-base lg:text-lg px-1 text-left text-gray-700" title={product.title}>
+                        {product.title}
+                    </h3>
+                    <div><span className="text-sm px-1 lg:py-1 font-medium rounded-md bg-indigo-100 text-gray-900">${product.price}</span></div>
+                </div>
             </div>
-            <div className="w-full mt-1 sm:mt-2 xl:mt-4 flex justify-between">
-                <h3 className="w-full text-xs sm:text-sm md:text-base lg:text-lg px-1 text-left text-gray-700" title={product.title}>
-                    {product.title}
-                </h3>
-                <div><span className="text-sm px-1 lg:py-1 font-medium rounded-md bg-indigo-100 text-gray-900">${product.price}</span></div>
-            </div>
+            {showPreview ? (
+                <ProductPreview product={product} showPreview={showPreview} closePreview={closePreview} />
+            ) : null }
             {selectedProducts[product.id] ?
                 (<div
                     className="flex flex-row flex-wrap justify-around items-center w-full p-1 rounded-br-xl rounded-bl-xl text-white bg-indigo-600">
