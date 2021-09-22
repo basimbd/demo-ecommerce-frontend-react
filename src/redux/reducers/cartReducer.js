@@ -20,7 +20,7 @@ export default function cartReducer(state=initialState, action) {
             state[action.payload].selectedAmount -= 1            // here, action.payload contains only product id
             return {...state}
         case CART_ACTIONS.DELETE_ALL:
-            return {...state}
+            return {}
         default:
             return state
     }

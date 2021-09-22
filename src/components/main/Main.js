@@ -1,6 +1,10 @@
 import Navbar from "../navbar/Navbar";
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import ProductPage from "../productPage/ProductPage";
+import AboutUs from "../about_us/AboutUs";
+import Faq from "../faq/Faq";
+import CheckoutFailed from "../checkout/CheckoutFailed";
+import CheckoutComplete from "../checkout/CheckoutComplete";
 
 export default function Main() {
     return (
@@ -11,7 +15,7 @@ export default function Main() {
                     <Route exact path="/">
                         <ProductPage />
                     </Route>
-                    {/*<Route exact path="/checkout_complete" render={
+                    <Route exact path="/checkout_complete" render={
                         ({location}) => {
                             if(location.state){
                                 return <CheckoutComplete {...location} />
@@ -21,16 +25,16 @@ export default function Main() {
                                 }}/>
                             }
                         }
-                    }/>*/}
-                    {/*<Route exact path="/checkout_failed">
+                    }/>
+                    <Route exact path="/checkout_failed">
                         <CheckoutFailed />
-                    </Route>*/}
-                    {/*<Route exact path="/about_us">
+                    </Route>
+                    <Route exact path="/about_us">
                         <AboutUs />
                     </Route>
                     <Route exact path="/faq">
                         <Faq />
-                    </Route>*/}
+                    </Route>
                 </Switch>
             </div>
         </Router>

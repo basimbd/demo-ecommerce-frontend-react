@@ -21,7 +21,7 @@ export default function CheckoutModal({isOpen, closeModal}) {
     }
 
     const proceedToCheckout = () => {
-        /*const postApiAddress = 'https://webhook.site/a444ecee-4efd-4ccf-8d13-6d8e295ffcfe';
+        const postApiAddress = 'https://webhook.site/21df1137-dd3e-4f0e-82ee-caede915de34';
         fetch(postApiAddress, {
             method: 'post',
             mode: 'no-cors',
@@ -29,26 +29,21 @@ export default function CheckoutModal({isOpen, closeModal}) {
                 Accept: 'application/json',
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify(Object.fromEntries(selectedProducts))
+            body: JSON.stringify(selectedProducts)
         }).then(() => {
-            console.log("Result OK!")
+            //console.log("Result OK!")
             history.replace({
                 pathname: '/checkout_complete',
-                state: Object.fromEntries(selectedProducts)
+                state: selectedProducts
             });
-            removeAllProducts();
-            console.log("Checkout Complete")
+            dispatch(deleteAllFromCart());
+            //console.log("Checkout Complete")
             return null
         }).catch(() => {
             history.push('/checkout_failed');
         }).finally(() => {
             closeModal();
-        });*/
-        history.replace({
-            pathname: '/checkout_complete',
-            state: null,//Object.fromEntries(selectedProducts)
         });
-        closeModal();
     }
 
     if(isOpen){
