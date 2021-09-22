@@ -1,7 +1,6 @@
 import {store} from "../redux/store/store";
 
 export function calculateSelectedProducts(){
-    //const selectedProducts = useSelector(state => state.cart)
     const selectedProducts = store.getState().cart
     let sum = 0;
     Object.entries(selectedProducts).forEach(([id, product]) => ( sum += product.selectedAmount ) );
@@ -9,13 +8,11 @@ export function calculateSelectedProducts(){
 }
 
 export function calculateItemPrice(product_id){
-    //const selectedProducts = useSelector(state => state.cart)
     const selectedProducts = store.getState().cart
     return (selectedProducts[product_id].selectedAmount * selectedProducts[product_id].price).toFixed(2)
 }
 
 export function calculateSubTotal(){
-    //const selectedProducts = useSelector(state => state.cart)
     const selectedProducts = store.getState().cart
     let sum = 0;
     Object.entries(selectedProducts).forEach(([id, product]) => ( sum += (product.price * product.selectedAmount) ) );

@@ -9,7 +9,6 @@ export default function ProductCheckoutCard({product, type}){
 
     const handleProductAmountChange = (e) => {
         if(e.target.value > 0){
-            //console.log(e.target.value)
             if ( /^[0-9]+$/.test(e.target.value) ){
                 dispatch(updateProductAmount(product.id, e.target.value));
             }

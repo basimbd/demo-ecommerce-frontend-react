@@ -10,6 +10,8 @@ export default function ProductCard(product) {
     function decrementAmount(){
         if(selectedProducts[product.id].selectedAmount > 1){
             dispatch(decrement(product.id))
+        } else if(selectedProducts[product.id].selectedAmount === 1){
+            dispatch(removeFromCart(product.id))
         }
     }
 

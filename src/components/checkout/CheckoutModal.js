@@ -11,8 +11,6 @@ export default function CheckoutModal({isOpen, closeModal}) {
     const selectedProducts = useSelector(state => state.cart)
     const history = useHistory();
 
-    //console.log(selectedProducts);
-
     const clearCart = () => {
         if(window.confirm("Are you sure you want to remove all products?")){
             dispatch(deleteAllFromCart());
@@ -31,13 +29,11 @@ export default function CheckoutModal({isOpen, closeModal}) {
             },
             body: JSON.stringify(selectedProducts)
         }).then(() => {
-            //console.log("Result OK!")
             history.replace({
                 pathname: '/checkout_complete',
                 state: selectedProducts
             });
             dispatch(deleteAllFromCart());
-            //console.log("Checkout Complete")
             return null
         }).catch(() => {
             history.push('/checkout_failed');

@@ -1,4 +1,4 @@
-import {Fragment, useContext, useState} from 'react'
+import {Fragment, useState, lazy} from 'react'
 import {Link} from "react-router-dom";
 
 import { Popover, Transition } from '@headlessui/react'
@@ -10,11 +10,11 @@ import electronics from '../../icons/electronics.svg'
 import womens_clothing from '../../icons/womens_clothing.svg'
 
 import DSILogo from '../../logo/dsi.logo.png'
-
 import CheckoutModal from "../checkout/CheckoutModal";
 import {useSelector} from "react-redux";
 import {calculateSelectedProducts} from "../../utils/calculations"
 
+//const CheckoutModal = lazy(() => import("../checkout/CheckoutModal"));
 
 const categories = [
     {
@@ -51,20 +51,9 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const selectedProducts = useSelector(state => state.cart)
-    /*const [selectedProducts] = useContext(ProductsContext)*/
-
-    /*const calculateSelectedProducts = () => {
-        let sum = 0;
-        selectedProducts.forEach(({price, selectedAmount}) => ( sum += selectedAmount ) );
-        return sum;
-    }*/
 
     function closeMenu(){
         setMenuOpen(false)
-    }
-
-    function openMenu(){
-        setMenuOpen(true)
     }
 
     function toggleMenu(){
