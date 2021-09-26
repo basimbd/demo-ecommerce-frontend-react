@@ -4,7 +4,6 @@ import {ACTIONS} from "../actions";
 
 export default function ProductCheckoutCard({product, type}){
     const [selectedProducts, dispatch] = useContext(ProductsContext)
-    console.log("TYPE: ",type)
 
     const removeProduct = () => {
         dispatch({
@@ -17,7 +16,6 @@ export default function ProductCheckoutCard({product, type}){
 
     const handleProductAmountChange = (e) => {
         if(e.target.value > 0){
-            console.log(e.target.value)
             if ( /^[0-9]+$/.test(e.target.value) ){
                 dispatch({
                     type: ACTIONS.UPDATE,
