@@ -1,49 +1,11 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import ProductCard from "./productCard/ProductCard";
-
-function getProductsFromLocalStorage() {
-    const products = localStorage.getItem('all_products')
-
-    if (products){
-        console.log("returning: ", JSON.parse(products))
-        return JSON.parse(products)
-    } else{
-        return []
-    }
-}
+import useLoadProducts from "../../hooks/useLoadProducts";
 
 export default function ProductPage() {
-    const [isLoading, setIsLoading] = useState(false)
-    const [products, setProducts] = useState(getProductsFromLocalStorage())
-
-    useEffect(() => {
-        if(!products.length){
-            setIsLoading(true)
-            fetchProducts().then(
-                //do nothing
-            );
-        }
-    }, [products])
-
-    async function fetchProducts(){
-        const apiAddress = "https://fakestoreapi.com/products"
-        try {
-            const response = await fetch(apiAddress)
-            if(response.ok){
-                const results = await response.json()
-                //console.log(results)
-                setIsLoading(false)
-                setProducts(results)
-                localStorage.setItem('all_products', JSON.stringify(results))
-            }else{
-                //console.log("Request Failed: ", response.statusText)
-                setIsLoading(false)
-            }
-        } catch (err) {
-            //console.log("Error: ", err)
-            setIsLoading(false)
-        }
-    }
+    const [isLoading, setIsLoading] = useState(true)
+    const [products, setProducts] = useState([])
+    useLoadProducts("https://fakestoreapi.com/products", "allProducts", setIsLoading, setProducts)
 
     return (
         <div className="bg-white">
