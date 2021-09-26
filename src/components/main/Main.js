@@ -36,7 +36,6 @@ export default function Main(){
                         <Faq />
                     </Route>
                 </Switch>
-                {/*<CheckoutModal />*/}
             </div>
         </Router>
     )

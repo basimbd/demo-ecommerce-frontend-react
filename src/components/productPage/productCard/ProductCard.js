@@ -67,18 +67,18 @@ function ProductCard(product) {
             {selectedProducts.has(product.id) ?
                 (<div className="flex flex-row flex-wrap justify-around items-center p-1 rounded-br-xl rounded-bl-xl text-white bg-indigo-600">
                     <div className="flex flex-row">
-                        <button className="flex m-1 pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-400 hover:bg-yellow-500 disabled:opacity-50" disabled={selectedProducts.get(product.id).selectedAmount === 0} onClick={decrement}>
+                        <button className="flex m-1 pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-300 hover:bg-yellow-500 disabled:opacity-50" disabled={selectedProducts.get(product.id).selectedAmount === 0} onClick={decrement}>
                             <span>&minus;</span> {/*for minus sign */}
                         </button>
                         <span className="m-1">{selectedProducts.get(product.id).selectedAmount}</span>
-                        <button className="flex m-1  pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-400 hover:bg-yellow-500" onClick={increment}>
+                        <button className="flex m-1  pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-300 hover:bg-yellow-500" onClick={increment}>
                             +
                         </button>
                     </div>
-                    <span className="p-1 bg-indigo-700 rounded-sm hover:bg-yellow-300 hover:text-gray-800 cursor-pointer" onClick={removeProduct}>Remove From Cart</span>
+                    <span className="p-1 bg-yellow-300 rounded-sm hover:bg-yellow-500 text-gray-800 cursor-pointer" onClick={removeProduct}>Remove From Cart</span>
                 </div>) :
                 (<div className="p-2 rounded-br-xl rounded-bl-xl text-white bg-indigo-600">
-                    <span className="p-1 bg-indigo-700 rounded-sm cursor-pointer hover:bg-yellow-300 hover:text-gray-800" onClick={increment}>Add To Cart</span>
+                    <span className="p-1 bg-yellow-300 rounded-sm cursor-pointer hover:bg-yellow-500 text-gray-800" onClick={increment}>Add To Cart</span>
                 </div>)
             }
         </div>

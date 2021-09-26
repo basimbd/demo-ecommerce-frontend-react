@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Main from "./components/main/Main";
 import ProductsContextProvider from "./components/contexts/productsContext/ProductsContextProvider";
