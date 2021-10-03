@@ -32,7 +32,7 @@ export default function ProductCard(product) {
             h-80 w-64 sm:h-96 sm:w-72 sm:my-4 md:h-104 md:w-80 md:my-6 lg:h-112 lg:w-88 shadow-md"
         >
             <div className="group cursor-pointer" onClick={openPreview}>
-                <div className="h-52 w-52 rounded-md sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72 group-hover:opacity-70">
+                <div className="mx-auto h-52 w-52 rounded-md sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72 group-hover:opacity-70">
                     <img
                         src={product.image}
                         alt={product.category}
@@ -40,7 +40,7 @@ export default function ProductCard(product) {
                     />
                 </div>
                 <div className="w-full mt-1 sm:mt-2 xl:mt-4 flex justify-between group-hover:opacity-70">
-                    <h3 className="w-full text-xs sm:text-sm md:text-base lg:text-lg px-1 text-left text-gray-700" title={product.title}>
+                    <h3 className="w-full text-xs sm:text-sm md:text-base px-1 text-left text-gray-700" title={product.title}>
                         {product.title}
                     </h3>
                     <div><span className="text-sm px-1 lg:py-1 font-medium rounded-md bg-indigo-100 text-gray-900">${product.price}</span></div>

@@ -100,10 +100,7 @@ export default function CheckoutModal({isOpen, closeModal}) {
                                     </Dialog.Title>
                                     <ul className="mt-2">
                                         {
-                                            Object.entries(selectedProducts).map( ([id,product]) => {
-                                                console.log(`ID: ${id}, Product: ${product}`)
-                                                return <li key={id}><ProductCheckoutCard {...{product, type: "checkoutModal"}} /></li>
-                                            })
+                                            Object.entries(selectedProducts).map( ([id,product]) => <li key={id}><ProductCheckoutCard {...{product, type: "checkoutModal"}} /></li>)
                                         }
                                     </ul>
 

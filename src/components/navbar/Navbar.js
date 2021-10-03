@@ -1,4 +1,4 @@
-import {Fragment, useState, lazy} from 'react'
+import {Fragment, Suspense, useState, lazy} from 'react'
 import {Link} from "react-router-dom";
 
 import { Popover, Transition } from '@headlessui/react'
@@ -10,11 +10,10 @@ import electronics from '../../icons/electronics.svg'
 import womens_clothing from '../../icons/womens_clothing.svg'
 
 import DSILogo from '../../logo/dsi.logo.png'
-import CheckoutModal from "../checkout/CheckoutModal";
 import {useSelector} from "react-redux";
 import {calculateSelectedProducts} from "../../utils/calculations"
 
-//const CheckoutModal = lazy(() => import("../checkout/CheckoutModal"));
+const CheckoutModal = lazy(() => import("../checkout/CheckoutModal"));
 
 const categories = [
     {
@@ -245,7 +244,9 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <CheckoutModal isOpen={isOpen} closeModal={closeModal}/>
+            <Suspense fallback={<div/>}>
+                <CheckoutModal isOpen={isOpen} closeModal={closeModal}/>
+            </Suspense>
 
             <Transition
                 as={Fragment}

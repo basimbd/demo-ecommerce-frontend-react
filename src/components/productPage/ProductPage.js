@@ -4,7 +4,7 @@ import { loadProducts } from "../../redux/actions/fetchProductsAction";
 
 export default function ProductPage() {
     const dispatch = useDispatch()
-    dispatch(loadProducts)
+    dispatch(loadProducts())
     const {loading, allProducts, errMessage} = useSelector(state => state.products)
 
     return (

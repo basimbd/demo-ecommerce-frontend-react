@@ -3,7 +3,6 @@ import {updateProductAmount, removeFromCart} from "../../redux/actions/cartActio
 import {calculateItemPrice} from "../../utils/calculations"
 
 export default function ProductCheckoutCard({product, type}){
-    console.log("TYPE: ",type)
     const selectedProducts = useSelector(state => state.cart)
     const dispatch = useDispatch()
 
