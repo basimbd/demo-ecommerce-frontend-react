@@ -2,6 +2,12 @@ import {Fragment} from "react";
 import {Dialog, Transition} from "@headlessui/react";
 import {addToCart, decrement, increment, removeFromCart} from "../../../redux/actions/cartAction";
 import {useDispatch, useSelector} from "react-redux";
+import {StarIcon} from "@heroicons/react/solid";
+
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 export default function ProductPreview({product, showPreview, closePreview}){
     const dispatch = useDispatch()
@@ -85,6 +91,17 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                                     </g>
                                                 </svg>
                                                 {product.price}
+                                            </p>
+                                            <p className="pt-4 text-base font-bold flex items-center justify-center lg:justify-start" title={product.rating.rate}>
+                                                {
+                                                    [...Array(5)].map((_, idx) =>
+                                                        <StarIcon className=
+                                                                      {classNames(Math.ceil(parseInt(product.rating.rate)-0.5)>=(idx+1) ? "text-yellow-400"
+                                                                          : "text-gray-400", "w-6 h-6")}
+                                                        />
+                                                    )
+                                                }
+                                                <span className="ml-2 text-xs">{product.rating.count} ratings</span>
                                             </p>
                                             <p className="pt-8 text-sm">
                                                 {product.description}
