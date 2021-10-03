@@ -15,7 +15,7 @@ export default function CheckoutComplete({state}) {
                 </ul>
                 <div  className="mx-auto max-w-2xl mb-16">
                     <div className="flex flex-row justify-end px-2">
-                        <span>{`Sub-total Amount = $${calculateSubTotal()}`}</span>
+                        <span>{`Sub-total Amount = $${calculateSubTotal(state)}`}</span>
                     </div>
                     <hr className="my-2 border-2 border-indigo-600"/>
                     <div className="flex flex-row justify-end px-2">
@@ -23,7 +23,7 @@ export default function CheckoutComplete({state}) {
                     </div>
                     <hr className="my-2 border-2 border-indigo-600"/>
                     <div className="flex flex-row justify-end px-2">
-                        <span>{`Total Amount = $${calculateGrandTotal()}`}</span>
+                        <span>{`Total Amount = $${calculateGrandTotal(state)}`}</span>
                     </div>
                 </div>
             </div>

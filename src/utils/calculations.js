@@ -12,11 +12,17 @@ export function calculateItemPrice(product_id){
     return (selectedProducts[product_id].selectedAmount * selectedProducts[product_id].price).toFixed(2)
 }
 
-export function calculateSubTotal(){
+export function calculateSubTotal(passedSelectedProducts){
     const selectedProducts = store.getState().cart
     let sum = 0;
-    Object.entries(selectedProducts).forEach(([id, product]) => ( sum += (product.price * product.selectedAmount) ) );
-    return sum.toFixed(2);
+    if(Object.entries(selectedProducts).length){
+        Object.entries(selectedProducts).forEach(([id, product]) => ( sum += (product.price * product.selectedAmount) ) );
+        return sum.toFixed(2);
+    }else if(passedSelectedProducts){
+        Object.entries(passedSelectedProducts).forEach(([id, product]) => ( sum += (product.price * product.selectedAmount) ) );
+        return sum.toFixed(2);
+    }
+
 }
 
 export function calculateDeliveryFee(){
@@ -24,9 +30,9 @@ export function calculateDeliveryFee(){
     return deliveryFee
 }
 
-export function calculateGrandTotal(){
+export function calculateGrandTotal(state){
     const deliveryFee = parseFloat(calculateDeliveryFee())
-    const subtotal = parseFloat(calculateSubTotal())
+    const subtotal = parseFloat(calculateSubTotal(state))
     const grandTotal = deliveryFee+subtotal
     return grandTotal.toFixed(2);
 }
