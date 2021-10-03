@@ -14,11 +14,13 @@ export default function cartReducer(state=initialState, action) {
             state[action.payload.product_id].selectedAmount = parseInt(action.payload.selectedAmount)  //here, action.payload contains an object ->
             return {...state}                                                                          //                             {product_id, selectedAmount}
         case CART_ACTIONS.INCREMENT_ITEM:
-            state[action.payload].selectedAmount += 1            // here, action.payload contains only product id
-            return {...state}
+            //state[action.payload].selectedAmount += 1
+            //return {...state}
+            return {...state, [action.payload]:{...state[action.payload], selectedAmount: state[action.payload].selectedAmount + 1}}    // here, action.payload contains only product id
         case CART_ACTIONS.DECREMENT_ITEM:
-            state[action.payload].selectedAmount -= 1            // here, action.payload contains only product id
-            return {...state}
+            //state[action.payload].selectedAmount -= 1
+            //return {...state}
+            return {...state, [action.payload]:{...state[action.payload], selectedAmount: state[action.payload].selectedAmount - 1}}    // here, action.payload contains only product id
         case CART_ACTIONS.DELETE_ALL:
             return {}
         default:

@@ -9,6 +9,7 @@ export async function fetchData(url){
             //return error
         }
     } catch (err) {
+        //console.log(err)
         return err.message
     }
 }
