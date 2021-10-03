@@ -4,6 +4,7 @@ import Navbar from "../navbar/Navbar";
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import ProductPage from "../productPage/ProductPage";
 
+
 const CheckoutComplete = lazy(() => import("../checkout/CheckoutComplete"))
 const CheckoutFailed = lazy(() => import("../checkout/CheckoutFailed"))
 const AboutUs = lazy(() => import("../about_us/AboutUs"))
@@ -18,27 +19,35 @@ export default function Main() {
                     <Route exact path="/">
                         <ProductPage />
                     </Route>
-                    <Suspense fallback={<div>Confirming Checkout...</div>}>
-                        <Route exact path="/checkout_complete" render={
-                            ({location}) => {
-                                if(location.state){
-                                    return <CheckoutComplete {...location} />
-                                } else{
-                                    return <Redirect to={{
-                                        pathname: "/",
-                                    }}/>
-                                }
+                    <Route exact path="/checkout_complete" render={
+                        ({location}) => {
+                            if(location.state){
+                                return (
+                                    <Suspense fallback={<div>Confirming Checkout...</div>}>
+                                        <CheckoutComplete {...location} />
+                                    </Suspense>
+                                )
+                            } else{
+                                return <Redirect to={{
+                                    pathname: "/",
+                                }}/>
                             }
-                        }/>
-                    </Suspense>
+                        }
+                    }/>
                     <Route exact path="/checkout_failed">
-                        <CheckoutFailed />
+                        <Suspense fallback={<div>Confirming Checkout...</div>}>
+                            <CheckoutFailed />
+                        </Suspense>
                     </Route>
                     <Route exact path="/about_us">
-                        <AboutUs />
+                        <Suspense fallback={<div>Loading About Us...</div>}>
+                            <AboutUs />
+                        </Suspense>
                     </Route>
                     <Route exact path="/faq">
-                        <Faq />
+                        <Suspense fallback={<div>Loading FAQs...</div>}>
+                            <Faq />
+                        </Suspense>
                     </Route>
                 </Switch>
             </div>
