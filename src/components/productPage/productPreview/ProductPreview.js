@@ -134,9 +134,9 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                     <span className="text-4xl">Product Preview</span>
                                 </Dialog.Title>
                                 <div className="max-w-5xl flex items-center h-auto flex-wrap mx-auto my-6">
-                                    <div ref={containerRef} className="relative w-full lg:w-2/5">
+                                    <div ref={containerRef} className="relative w-full hidden lg:block lg:w-2/5">
                                         <img ref={imageRef} src={product.image}
-                                             className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
+                                             className="rounded-none lg:rounded-lg shadow-2xl"
                                              alt={product.title}
                                              onMouseEnter={showZoomedImage}
                                         />

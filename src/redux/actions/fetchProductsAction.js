@@ -1,4 +1,5 @@
 import { fetchData } from "../../utils/fetchDataFromApi";
+import getBase64 from "../../utils/getBase64";
 import { FetchProductsActionTypes } from "../actionTypes/fetchProductsActionTypes";
 import {store} from "../store/store";
 
@@ -11,11 +12,18 @@ export function loadProducts(){
     }
 }
 
-export function fetchProducts(dispatch) {
+function fetchProducts(dispatch) {
     dispatch(setFetchRequest())
     fetchData('https://fakestoreapi.com/products')
         .then(data => {
-            dispatch(setFetchComplete(data))
+            Promise.all(
+                data.map(async (element) => {
+                    const base64Image = await getBase64(element.image)
+                    return {...element, image:base64Image}
+                })
+            ).then(dataArray => {
+                dispatch(setFetchComplete(dataArray))
+            })
         })
         .catch(err => {
             dispatch(setFetchFailed(err))
