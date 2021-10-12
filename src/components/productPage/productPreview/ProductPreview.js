@@ -1,4 +1,4 @@
-import {Fragment} from "react";
+import {Fragment, useEffect, useRef, useState} from "react";
 import {Dialog, Transition} from "@headlessui/react";
 import {addToCart, decrement, increment, removeFromCart} from "../../../redux/actions/cartAction";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,10 +10,76 @@ function classNames(...classes) {
 }
 
 export default function ProductPreview({product, showPreview, closePreview}){
+    const [isHoveringImage, setIsHoveringImage] = useState(false)
     const dispatch = useDispatch()
     const selectedProducts = useSelector(state => {
         return state.cart
     })
+
+    const containerRef = useRef()
+    const imageRef = useRef()
+    const lensRef = useRef()
+    const zoomedImageRef = useRef()
+
+    useEffect(() => {
+        const currentContainer = containerRef.current
+        currentContainer.addEventListener("mousemove", zoomImageOnHover)
+
+        return () => {
+            currentContainer.removeEventListener("mousemove", zoomImageOnHover)
+        }
+    }, [])
+    function zoomImageOnHover(e){
+        const containerRect = containerRef.current.getBoundingClientRect()
+        const lensRect = lensRef.current.getBoundingClientRect()
+        const imageRect = imageRef.current.getBoundingClientRect()
+        const zoomedImageRect = zoomedImageRef.current.getBoundingClientRect()
+        const {x, y} = getCursorPosition(e, containerRect, lensRect)
+
+        lensRef.current.style.left = x + "px"
+        lensRef.current.style.top = y + "px"
+
+        const fx = zoomedImageRect.width / lensRect.width
+        const fy = zoomedImageRect.height / lensRect.height
+
+        zoomedImageRef.current.style.backgroundSize = `${imageRect.width * fx}px ${imageRect.height * fy}px`
+        zoomedImageRef.current.style.backgroundPosition = `${-x*fx}px ${-y*fy}px`
+    }
+
+    function getCursorPosition(e, containerRect, lensRect){
+        let x = e.clientX - containerRect.left - (lensRect.width/2)
+        let y = e.clientY - containerRect.top - (lensRect.height/2)
+
+        const minX = 0
+        const minY = 0
+        const maxX = containerRect.width - lensRect.width
+        const maxY = containerRect.height - lensRect.height
+
+        if(x <= minX){
+            x = minX
+        }else if(x >= maxX){
+            x = maxX
+        }
+
+        if(y <= minY){
+            y = minY
+        }else if(y >= maxY){
+            y = maxY
+        }
+
+        return {x, y}
+    }
+
+    function showZoomedImage(){
+        //lensRef.current.style.visibility = "visible"
+        //zoomedImageRef.current.style.display = "block"
+        setIsHoveringImage(true)
+    }
+    function hideZoomedImage(){
+        //zoomedImageRef.current.style.display = "none"
+        //lensRef.current.style.visibility = "hidden"
+        setIsHoveringImage(false)
+    }
 
     function decrementAmount(){
         if(selectedProducts[product.id].selectedAmount > 1){
@@ -65,9 +131,29 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                     as="h3"
                                     className="flex flex-row justify-between items-center text-lg font-medium leading-6 text-gray-900"
                                 >
-                                    <span>Product Preview</span>
+                                    <span className="text-4xl">Product Preview</span>
                                 </Dialog.Title>
                                 <div className="max-w-5xl flex items-center h-auto flex-wrap mx-auto my-6">
+                                    <div ref={containerRef} className="relative w-full lg:w-2/5">
+                                        <img ref={imageRef} src={product.image}
+                                             className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
+                                             alt={product.title}
+                                             onMouseEnter={showZoomedImage}
+                                        />
+                                        {
+                                            isHoveringImage &&
+                                            <div ref={lensRef} className="absolute top-0 left-0 w-32 h-32 bg-dotted_frame opacity-70"
+                                                 onMouseLeave={hideZoomedImage}
+                                            />
+                                        }
+                                        {
+                                            isHoveringImage &&
+                                            <div ref={zoomedImageRef}
+                                                 className="absolute top-1/2 transform -translate-y-1/2 left-full ml-12 w-128 h-128 z-40 bg-no-repeat"
+                                                 style={{backgroundImage:`url(${product.image})`}}
+                                            />
+                                        }
+                                    </div>
                                     <div id="profile"
                                          className="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-90 mx-auto md:mx-6 lg:mx-0"
                                     >
@@ -92,10 +178,10 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                                 </svg>
                                                 {product.price}
                                             </p>
-                                            <p className="pt-4 text-base font-bold flex items-center justify-center lg:justify-start" title={product.rating.rate}>
+                                            <p className="pt-4 text-base font-bold flex items-center justify-center lg:justify-start max-w-max" title={product.rating.rate}>
                                                 {
                                                     [...Array(5)].map((_, idx) =>
-                                                        <StarIcon className=
+                                                        <StarIcon key={product.rating+idx} className=
                                                                       {classNames(Math.ceil(parseInt(product.rating.rate)-0.5)>=(idx+1) ? "text-yellow-400"
                                                                           : "text-gray-400", "w-6 h-6")}
                                                         />
@@ -142,13 +228,6 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                                 }
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div className="w-full lg:w-2/5">
-                                        <img src={product.image}
-                                             className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
-                                            alt={product.title}
-                                        />
                                     </div>
                                 </div>
                             </div>

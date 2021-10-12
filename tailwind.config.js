@@ -18,6 +18,9 @@ module.exports = {
         '8xl': '88rem',
         '9xl': '96rem',
       },
+      backgroundImage: {
+        'dotted_frame': "url('icons/dotted_frame.png')",
+      }
     },
   },
   variants: {
