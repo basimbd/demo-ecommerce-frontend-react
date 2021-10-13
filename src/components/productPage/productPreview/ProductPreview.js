@@ -197,7 +197,7 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                                 {selectedProducts[product.id] ?
                                                     (
                                                         <div
-                                                            className="flex flex-row flex-wrap justify-around items-center w-full bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full outline-none">
+                                                            className="flex flex-row flex-wrap justify-around items-center w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-full outline-none">
                                                             <div className="flex flex-row">
                                                                 <button
                                                                     className="flex m-1 pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-400 hover:bg-yellow-500 disabled:opacity-50"
@@ -213,13 +213,13 @@ export default function ProductPreview({product, showPreview, closePreview}){
                                                                     +
                                                                 </button>
                                                             </div>
-                                                            <span
-                                                                className="py-1 px-2 bg-yellow-300 hover:bg-yellow-500 text-gray-800 rounded-sm cursor-pointer"
-                                                                onClick={() => dispatch(removeFromCart(product.id))}>Remove From Cart</span>
+                                                            <button
+                                                                className="py-1 px-2 bg-yellow-300 hover:bg-yellow-500 text-gray-800 rounded-sm"
+                                                                onClick={() => dispatch(removeFromCart(product.id))}>Remove From Cart</button>
                                                         </div>
                                                     ) :
                                                     (
-                                                        <button className="bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full outline-none"
+                                                        <button className="bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full"
                                                                 onClick={() => dispatch(addToCart({...product, selectedAmount: 1}))}
                                                         >
                                                             Add To Cart

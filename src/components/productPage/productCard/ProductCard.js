@@ -31,7 +31,7 @@ export default function ProductCard(product) {
         <div className="flex flex-col flex-nowrap items-center justify-between rounded-xl mx-auto my-2
             h-80 w-64 sm:h-96 sm:w-72 sm:my-4 md:h-104 md:w-80 md:my-6 lg:h-112 lg:w-88 shadow-md"
         >
-            <div className="group cursor-pointer" onClick={openPreview}>
+            <div className="group cursor-pointer focus:opacity-70" onClick={openPreview} tabIndex="0" onKeyDown={(e) => {if(e.key === "Enter") openPreview()}}>
                 <div className="mx-auto h-52 w-52 rounded-md sm:h-60 sm:w-60 md:h-64 md:w-64 lg:h-72 lg:w-72 group-hover:opacity-70">
                     <img
                         src={product.image}
@@ -50,8 +50,7 @@ export default function ProductCard(product) {
                 <ProductPreview product={product} showPreview={showPreview} closePreview={closePreview} />
             ) : null }
             {selectedProducts[product.id] ?
-                (<div
-                    className="flex flex-row flex-wrap justify-around items-center w-full p-1 rounded-br-xl rounded-bl-xl text-white bg-indigo-600">
+                (<div className="flex flex-row flex-wrap justify-around items-center w-full p-2 rounded-br-xl rounded-bl-xl text-white bg-indigo-600">
                     <div className="flex flex-row">
                         <button
                             className="flex m-1 pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-400 hover:bg-yellow-500 disabled:opacity-50"
@@ -61,20 +60,24 @@ export default function ProductCard(product) {
                             <span>&minus;</span>
                         </button>
                         <span className="m-1">{selectedProducts[product.id].selectedAmount}</span>
-                        <button
-                            className="flex m-1  pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-400 hover:bg-yellow-500"
-                            onClick={() => dispatch(increment(product.id))}>
+                        <button className="flex m-1  pb-1 justify-center items-center rounded-sm w-5 h-5 text-gray-800 bg-yellow-400 hover:bg-yellow-500"
+                            onClick={() => dispatch(increment(product.id))}
+                        >
                             +
                         </button>
                     </div>
-                    <span
-                        className="p-1 bg-yellow-300 hover:bg-yellow-500 text-gray-800 rounded-sm cursor-pointer"
-                        onClick={() => dispatch(removeFromCart(product.id))}>Remove From Cart</span>
+                    <button className="p-1 bg-yellow-300 hover:bg-yellow-500 text-gray-800 rounded-sm focus:outline-none focus:ring-4 focus:ring-blue-400"
+                        onClick={() => dispatch(removeFromCart(product.id))}
+                    >
+                        Remove From Cart
+                    </button>
                 </div>) :
                 (<div className="w-full p-2 rounded-br-xl rounded-bl-xl bg-indigo-600">
-                    <span
-                        className="p-1 bg-yellow-300 hover:bg-yellow-500 rounded-sm cursor-pointer text-gray-800"
-                        onClick={() => dispatch(addToCart({...product, selectedAmount: 1}))}>Add To Cart</span>
+                    <button className="p-1 bg-yellow-300 hover:bg-yellow-500 rounded-sm text-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-400"
+                        onClick={() => dispatch(addToCart({...product, selectedAmount: 1}))}
+                    >
+                        Add To Cart
+                    </button>
                 </div>)
             }
         </div>

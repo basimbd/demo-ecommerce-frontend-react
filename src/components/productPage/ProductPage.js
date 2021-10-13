@@ -8,7 +8,7 @@ export default function ProductPage() {
     const {loading, allProducts, errMessage} = useSelector(state => state.products)
 
     return (
-        <div className="bg-white">
+        <main className="bg-white">
             {loading ? (
                 <div className="mx-auto text-center w-48 h-48">
                     <svg className="animate-spin" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -31,6 +31,6 @@ export default function ProductPage() {
                 </div>
             )
             }
-        </div>
+        </main>
     )
 }

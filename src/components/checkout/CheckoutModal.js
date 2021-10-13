@@ -126,7 +126,7 @@ export default function CheckoutModal({isOpen, closeModal}) {
                                     <div className="mt-4">
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md disabled:opacity-30 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md disabled:opacity-30 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             onClick={proceedToCheckout}
                                             disabled={!Object.keys(selectedProducts).length}
                                         >
